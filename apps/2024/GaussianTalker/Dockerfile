@@ -52,7 +52,7 @@ RUN apt-get update && \
     pip install pytorch_msssim open3d wandb face_alignment python_speech_features numba resampy pyaudio soundfile configargparse && \
     pip install -e submodules/custom-bg-depth-diff-gaussian-rasterization && \
     pip install -e submodules/simple-knn && \
-    pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \
+    FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \
     pip install tensorflow-gpu==2.8.0 && \
     pip install --upgrade "protobuf<=3.20.1" && \
     rm -rf ${DIR} && \

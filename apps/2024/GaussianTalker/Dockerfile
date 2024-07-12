@@ -10,7 +10,10 @@ RUN apt-get update && \
         # for pyaudio
         portaudio19-dev \
         # for OpenFace
-        g++-8 && \
+        libopenblas-dev \
+        g++-8 \
+        # for GaussianTalker
+        python3-tk && \
         apt-get clean -y && \
 # dlib
     DIR=/tmp/dlib && \

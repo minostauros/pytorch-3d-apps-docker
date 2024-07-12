@@ -102,5 +102,7 @@ jobs:
           file: ${{ steps.dockerfile.outputs.path }}
           push: true
           tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.dockerfile.outputs.tag }}
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}:${{ steps.dockerfile.outputs.tag_date }}
+            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ steps.dockerfile.outputs.tag }}
             ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ steps.dockerfile.outputs.tag_date }}

@@ -43,9 +43,8 @@ jobs:
         run: |
           filepath=${{ github.event.inputs.path }};
           echo "path=$filepath" >> $GITHUB_OUTPUT;
-          py_ver=$(echo $filepath | grep 'python-' | sed 's/.*\/python-\([0-9]*\)[\.]*\([0-9]*\)[^/]*.*Dockerfile/-py\1\2/');
-          tag=$(echo $filepath | sed 's/pytorch-\([0-9\.]*\).*\/cuda-\([0-9]*\)[\.]*\([0-9]*\)[^/]*.*Dockerfile/\1-cu\2\3/' | sed 's/\(.*\)\/Dockerfile/\1/' | sed 's/\//-/g');
-          echo "tag=${tag}${py_ver}" >> $GITHUB_OUTPUT;
+          tag=$(echo $filepath | sed -n 's#.*/\([^/]*\)/Dockerfile#\1#p');
+          echo "tag=${tag}" >> $GITHUB_OUTPUT;
           date="$(TZ='UTC' date +'%Y%m%d')";
           tag_date="${tag}-${date}";
           echo "tag_date=${tag_date}" >> $GITHUB_OUTPUT;

@@ -40,9 +40,7 @@ RUN apt-get update && \
     cd ${DIR}/build && \
     cmake -D CMAKE_CXX_COMPILER=g++-8 -D CMAKE_C_COMPILER=gcc-8 -D CMAKE_BUILD_TYPE=RELEASE .. && \
     make -j$(nproc) && \
-    cp -r ${DIR}/build/bin/* /usr/local/bin/ && \
-    ls -l /usr/local/bin/ && \
-    ls -l /usr/local/bin/model/patch_experts/ && \
+    make install && \
     rm -rf ${DIR} && \
     cd /tmp && \
 # GaussianTalker
@@ -50,13 +48,14 @@ RUN apt-get update && \
     mkdir -p ${DIR} && \
     cd ${DIR} && \
     git clone --recursive https://github.com/KU-CVLAB/GaussianTalker . && \
-    pip install mmcv==2.2.0 -f https://download.openmmlab.com/mmcv/dist/cu121/torch2.2/index.html && \
-    pip install pytorch_msssim open3d wandb face_alignment python_speech_features numba resampy pyaudio soundfile configargparse && \
+    pip install mmcv==1.6.0 plyfile pytorch_msssim open3d wandb face_alignment python_speech_features numba resampy pyaudio soundfile configargparse && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/custom-bg-depth-diff-gaussian-rasterization && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/simple-knn && \
     MAKEFLAGS="-j$(nproc)" FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \
-    pip install tensorflow-gpu==2.8.0 && \
+    pip install tensorflow-gpu==2.12.0 && \
     pip install --upgrade "protobuf<=3.20.1" && \
+    mkdir -p /root/.cache/torch/hub/checkpoints/ && \
+    wget https://download.pytorch.org/models/vgg16-397923af.pth -O /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth && \
     rm -rf ${DIR} && \
     cd /tmp && \
 # remove futile apt packages and pip cache

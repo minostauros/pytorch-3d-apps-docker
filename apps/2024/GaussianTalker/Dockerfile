@@ -56,6 +56,7 @@ RUN apt-get update && \
     pip install tensorflow==2.12.0 tensorflow-tensorboard && \
     pip install --upgrade "protobuf<=3.20.1" && \
     mkdir -p /root/.cache/torch/hub/checkpoints/ && \
+    wget https://download.pytorch.org/models/resnet18-5c106cde.pth -O /root/.cache/torch/hub/checkpoints/resnet18-5c106cde.pth && \
     wget https://download.pytorch.org/models/vgg16-397923af.pth -O /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth && \
     rm -rf ${DIR} && \
     cd /tmp && \

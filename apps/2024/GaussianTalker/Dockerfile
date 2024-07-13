@@ -60,13 +60,7 @@ RUN apt-get update && \
 # remove futile apt packages and pip cache to save space
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/* && \
-# download GaussianTalker required checkpoints
-    mkdir -p /root/.cache/torch/hub/checkpoints/ && \
-    wget https://download.pytorch.org/models/resnet18-5c106cde.pth -O /root/.cache/torch/hub/checkpoints/resnet18-5c106cde.pth && \
-    wget https://download.pytorch.org/models/vgg16-397923af.pth -O /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth && \
-    mkdir -p /root/.tensorflow/models/ && \
-    wget https://github.com/osmr/deepspeech_features/releases/download/v0.0.1/deepspeech-0_1_0-b90017e8.pb.zip -O /root/.tensorflow/models/deepspeech-0_1_0-b90017e8.pb.zip
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/*
 
 ENV QT_QPA_PLATFORM="offscreen"
 

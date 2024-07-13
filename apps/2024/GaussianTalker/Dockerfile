@@ -49,7 +49,7 @@ RUN apt-get update && \
     mkdir -p ${DIR} && \
     cd ${DIR} && \
     git clone --recursive https://github.com/KU-CVLAB/GaussianTalker . && \
-    pip install mmcv==1.6.0 plyfile pytorch_msssim open3d wandb face_alignment python_speech_features numba resampy pyaudio soundfile configargparse && \
+    pip install mmcv==1.6.0 plyfile pytorch_msssim open3d wandb face_alignment==1.3.4 python_speech_features numba resampy pyaudio soundfile configargparse && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/custom-bg-depth-diff-gaussian-rasterization && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/simple-knn && \
     MAKEFLAGS="-j$(nproc)" FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \

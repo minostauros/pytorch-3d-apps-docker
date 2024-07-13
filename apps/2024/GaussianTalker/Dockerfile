@@ -2,6 +2,7 @@ FROM ghcr.io/minostauros/pytorch-video-docker:2.2.2-cu121-py310
 
 # some apt packages
 RUN apt-get update && \
+    # g++8 is for OpenFace
     echo 'deb http://old-releases.ubuntu.com/ubuntu/ impish main restricted universe multiverse' | tee /etc/apt/sources.list.d/gcc-8.list && \
     apt update && \
     DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true apt-get install -y --no-install-recommends \
@@ -28,7 +29,7 @@ RUN apt-get update && \
     ldconfig && \
     rm -rf ${DIR} && \
     cd /tmp && \
-# OpenFace \
+# OpenFace
     DIR=/tmp/OpenFace && \
     mkdir -p ${DIR} && \
     cd ${DIR} && \
@@ -52,7 +53,7 @@ RUN apt-get update && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/custom-bg-depth-diff-gaussian-rasterization && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/simple-knn && \
     MAKEFLAGS="-j$(nproc)" FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \
-    pip install tensorflow-gpu==2.12.0 && \
+    pip install tensorflow==2.12.0 tensorflow-tensorboard && \
     pip install --upgrade "protobuf<=3.20.1" && \
     mkdir -p /root/.cache/torch/hub/checkpoints/ && \
     wget https://download.pytorch.org/models/vgg16-397923af.pth -O /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth && \

@@ -55,15 +55,18 @@ RUN apt-get update && \
     MAKEFLAGS="-j$(nproc)" FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \
     pip install tensorflow==2.12.0 tensorflow-tensorboard && \
     pip install --upgrade "protobuf<=3.20.1" && \
+    rm -rf ${DIR} && \
+    cd /tmp && \
+# remove futile apt packages and pip cache to save space
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/* && \
+# download GaussianTalker required checkpoints
     mkdir -p /root/.cache/torch/hub/checkpoints/ && \
     wget https://download.pytorch.org/models/resnet18-5c106cde.pth -O /root/.cache/torch/hub/checkpoints/resnet18-5c106cde.pth && \
     wget https://download.pytorch.org/models/vgg16-397923af.pth -O /root/.cache/torch/hub/checkpoints/vgg16-397923af.pth && \
-    rm -rf ${DIR} && \
-    cd /tmp && \
-# remove futile apt packages and pip cache
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.cache/pip/*
+    mkdir -p /root/.tensorflow/models/ && \
+    wget https://github.com/osmr/deepspeech_features/releases/download/v0.0.1/deepspeech-0_1_0-b90017e8.pb.zip -O /root/.tensorflow/models/deepspeech-0_1_0-b90017e8.pb.zip
 
 ENV QT_QPA_PLATFORM="offscreen"
 

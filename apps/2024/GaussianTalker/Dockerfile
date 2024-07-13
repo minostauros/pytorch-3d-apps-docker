@@ -33,14 +33,16 @@ RUN apt-get update && \
     mkdir -p ${DIR} && \
     cd ${DIR} && \
     git clone https://github.com/TadasBaltrusaitis/OpenFace.git . && \
-    sed -i '1s|cd lib/local/LandmarkDetector/model/patch_experts|cd build/bin/model/patch_experts|' download_models.sh && \
-    mkdir -p build/bin/model/patch_experts && \
+    mkdir -p ${DIR}/build/bin/model/patch_experts && \
     chmod +x download_models.sh && \
     ./download_models.sh && \
-    cd build && \
+    cp -r ${DIR}/lib/local/LandmarkDetector/model/patch_experts/* ${DIR}/build/bin/model/patch_experts/ && \
+    cd ${DIR}/build && \
     cmake -D CMAKE_CXX_COMPILER=g++-8 -D CMAKE_C_COMPILER=gcc-8 -D CMAKE_BUILD_TYPE=RELEASE .. && \
     make -j$(nproc) && \
-    cp -r bin/* /usr/local/bin/ && \
+    cp -r ${DIR}/build/bin/* /usr/local/bin/ && \
+    ls -l /usr/local/bin/ && \
+    ls -l /usr/local/bin/model/patch_experts/ && \
     rm -rf ${DIR} && \
     cd /tmp && \
 # GaussianTalker
@@ -50,8 +52,8 @@ RUN apt-get update && \
     git clone --recursive https://github.com/KU-CVLAB/GaussianTalker . && \
     pip install mmcv==2.2.0 -f https://download.openmmlab.com/mmcv/dist/cu121/torch2.2/index.html && \
     pip install pytorch_msssim open3d wandb face_alignment python_speech_features numba resampy pyaudio soundfile configargparse && \
-    pip install -e submodules/custom-bg-depth-diff-gaussian-rasterization && \
-    pip install -e submodules/simple-knn && \
+    pip install submodules/custom-bg-depth-diff-gaussian-rasterization && \
+    pip install submodules/simple-knn && \
     FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git" && \
     pip install tensorflow-gpu==2.8.0 && \
     pip install --upgrade "protobuf<=3.20.1" && \

@@ -14,7 +14,7 @@ RUN apt-get update && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/simple-knn && \
     MAKEFLAGS="-j$(nproc)" pip install submodules/diff-gaussian-rasterization && \
     MAKEFLAGS="-j$(nproc)" FORCE_CUDA=1 pip install "git+https://github.com/facebookresearch/pytorch3d.git@stable" && \
-    pip install lpips plyfile==0.8.1 scikit-image loguru chumpy trimesh==3.20.2 mediapipe==0.10.0 face-alignment==1.3.5 && \
+    pip install timm==0.9.16 albumentations==1.3.0 lpips plyfile==0.8.1 scikit-image loguru chumpy trimesh==3.20.2 mediapipe==0.10.0 face-alignment==1.3.5 && \
     # improve numpy compatibility of chumpy
     sed -i '11{/^from numpy/d}' /usr/local/lib/python3.10/dist-packages/chumpy/__init__.py && \
     rm -rf ${DIR} && \

@@ -8,6 +8,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true apt-get install -y --no-install-recommends \
         unzip \
         netcat \
+        python3-venv \
         # for pyaudio
         portaudio19-dev \
         # for OpenFace

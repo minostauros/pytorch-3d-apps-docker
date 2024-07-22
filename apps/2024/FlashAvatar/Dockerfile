@@ -4,7 +4,10 @@ FROM ghcr.io/minostauros/pytorch-video-docker:2.2.2-cu121-py310
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true apt-get install -y --no-install-recommends \
         unzip \
-        netcat && \
+        netcat \
+        python3-venv \
+        python3-tk \
+        && \
         apt-get clean -y && \
 # FlashAvatar
     DIR=/tmp/flashavatar && \
